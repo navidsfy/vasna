@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 # Load environment variables
 load_dotenv()
@@ -79,14 +80,10 @@ WSGI_APPLICATION = 'vasnacompany.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'root',
-        'PASSWORD': 'P0cJjjtfKHLMgW3UvVd05OhV',
-        'HOST': 'vasnasql',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'postgresql://root:P0cJjjtfKHLMgW3UvVd05OhV@vasnasql:5432/postgres'),
+        conn_max_age=600
+    )
 }
 
 
